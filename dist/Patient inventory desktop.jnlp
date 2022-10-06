@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Patient inventory desktop.jnlp">
+  <information>
+    <title>Patient inventory desktop</title>
+    <vendor>agile systems</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Patient inventory desktop" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="patient.inventory.desktop.PatientInventoryDesktop"  name="Patient inventory desktop" />
+  <update check="always"/>
+</jnlp>
