@@ -144,10 +144,10 @@ public class Patient {
             CloseableHttpResponse response = client.execute(httpGet);
             HttpEntity responseEntity = response.getEntity();
             res = EntityUtils.toString(responseEntity);
-            json = new JSONArray(url);
+            json = new JSONArray(res);
             
             if(response.getStatusLine().getStatusCode() == 200){
-                
+                   
             }else{
                 
             }
