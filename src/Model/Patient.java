@@ -146,6 +146,7 @@ public class Patient {
             res = EntityUtils.toString(responseEntity);
             json = new JSONArray(res);
             
+            
             if(response.getStatusLine().getStatusCode() == 200){
                    
             }else{

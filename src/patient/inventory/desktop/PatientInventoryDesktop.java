@@ -5,44 +5,39 @@
  */
 package patient.inventory.desktop;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-
 
 /**
  *
  * @author agile systems
  */
 public class PatientInventoryDesktop extends Application {
-    
-    public static String Base_URL = "https://patient-backlog-api.herokuapp.com/api";
-    
+
+    //public static String Base_URL = "https://patient-backlog-api.herokuapp.com/api";
+    public static String Base_URL = "https://antiviraltreatementapi.herokuapp.com/api/v1";
+    ///login
+
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        try {
+            Parent root2 = FXMLLoader.load(getClass().getResource("/View/Login.fxml"));
+            Scene scene2 = new Scene(root2);
+            primaryStage.setScene(scene2);
+            primaryStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(PatientInventoryDesktop.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -51,5 +46,5 @@ public class PatientInventoryDesktop extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
