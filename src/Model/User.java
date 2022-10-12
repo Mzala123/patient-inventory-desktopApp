@@ -7,6 +7,7 @@ package Model;
 
 import Controller.LoginController;
 import static Controller.LoginController.login_details;
+import static Controller.UserListController.userList;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,17 @@ public class User {
         this.role = role;
         this.user_type = user_type;
     }
+
+    public User(String useremail, String username, String primary_id, String phonenumber, String role, String avatar) {
+        this.useremail = useremail;
+        this.username = username;
+        this.primary_id = primary_id;
+        this.avatar = avatar;
+        this.phonenumber = phonenumber;
+        this.role = role;
+    }
+    
+    
 
     public String getUseremail() {
         return useremail;
@@ -179,59 +191,60 @@ public class User {
             HttpEntity responseEntity = response.getEntity();
             res = EntityUtils.toString(responseEntity);
             json = new JSONObject(res);
-            System.out.println(json);
+            //System.out.println(json);
             JSONObject attributes = json.getJSONObject("data");
             JSONArray data = attributes.getJSONArray("data");
-            System.out.println(data);
-            if (json.getString("success") == "success") {
+            
+           if (json.getString("status").equals("success")) {
+                 userList.clear();
                 for (int i = 0; i < data.length(); i++) {
                     if (data.get(i) instanceof JSONObject) {
                         JSONObject jsnObj = (JSONObject) data.get(i);
 
-                        String role = "";
-                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").get("role"))) {
-                            role = (String) jsnObj.getJSONObject("attributes").get("role");
-                            setRole(role);
-                        } else {
-                        }
+                        String role = (String) jsnObj.getJSONObject("attributes").get("role");
+                       
 
-                        String id = "";
-                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").get("id").toString())) {
-                            id = (String) jsnObj.getJSONObject("attributes").get("id").toString();
-                            setPrimary_id(id);
-                        } else {
-                        }
+                        String id = (String) jsnObj.getJSONObject("attributes").get("id").toString();
+//                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").get("id").toString())) {
+//                            id = 
+//                            setPrimary_id(id);
+//                        } else {
+//                        }
 
-                        String username = "";
-                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").get("username"))) {
-                            username = (String) jsnObj.getJSONObject("attributes").get("username");
-                            setUsername(username);
-                        } else {
-                        }
+                        String username = (String) jsnObj.getJSONObject("attributes").get("username");
+//                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").get("username"))) {
+//                            username = (String) jsnObj.getJSONObject("attributes").get("username");
+//                            setUsername(username);
+//                        } else {
+//                        }
 
-                        String phonenumber = "";
-                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").getString("phone"))) {
-                            phonenumber = (String) jsnObj.getJSONObject("attributes").getString("phone");
-                            setPhonenumber(phonenumber);
-                        } else {
+                        String phonenumber = (String) jsnObj.getJSONObject("attributes").getString("phone");
+//                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").getString("phone"))) {
+//                            phonenumber = (String) jsnObj.getJSONObject("attributes").getString("phone");
+//                            setPhonenumber(phonenumber);
+//                        } else {
+//
+//                        }
 
-                        }
-                        String email = "";
-                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").getString("email"))) {
-                            email = (String) jsnObj.getJSONObject("attributes").getString("email");
-                            setUseremail(email);
-                        } else {
+                        String email = (String) jsnObj.getJSONObject("attributes").getString("email");
+//                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").getString("email"))) {
+//                            email = (String) jsnObj.getJSONObject("attributes").getString("email");
+//                            setUseremail(email);
+//                        } else {
+//
+//                        }
 
-                        }
-
-                        String avatar = "";
-                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").get("avatar"))) {
-                            avatar = (String) jsnObj.getJSONObject("attributes").get("avatar");
-                            setAvatar(avatar);
-                        } else {
-
-                        }
+                        String avatar = (String) jsnObj.getJSONObject("attributes").get("avatar");
+//                        if (!jsnObj.isNull((String) jsnObj.getJSONObject("attributes").get("avatar"))) {
+//                            avatar = (String) jsnObj.getJSONObject("attributes").get("avatar");
+//                            setAvatar(avatar);
+//                        } else {
+//
+//                        }
+                        System.out.println("The email is "+email);
+                        userList.addAll(new User(email, username, id, phonenumber, role, avatar));
                     }
+                    
                 }
             }
             client.close();
