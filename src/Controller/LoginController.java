@@ -8,6 +8,8 @@ package Controller;
 import Model.Notification;
 import Model.User;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 import org.json.JSONException;
 
 /**
@@ -32,13 +35,18 @@ public class LoginController implements Initializable {
     private TextField username;
     @FXML
     private PasswordField password;
+    @FXML
+    private StackPane stackpane;
 
+    public static StackPane tempLoginStackpane;
+     public static List<String> login_details = new ArrayList<>();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+      tempLoginStackpane = stackpane;
     }    
 
     @FXML
@@ -48,6 +56,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void login(ActionEvent event) {
+      
         User user = new User();
         String username = this.username.getText();
         user.setUsername(username);
@@ -59,6 +68,7 @@ public class LoginController implements Initializable {
         }else{
             try {
                 user.sign_in();
+               // user.user_list();
             } catch (JSONException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -66,6 +76,15 @@ public class LoginController implements Initializable {
             }
            
         
+    }
+
+    private void get_user_list(ActionEvent event) {
+          User user = new User();
+        try {
+            user.user_list();
+        } catch (JSONException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
